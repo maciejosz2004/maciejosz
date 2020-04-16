@@ -1,0 +1,139 @@
+#include <SoftwareSerial.h>
+
+SoftwareSerial BT(10, 11); 
+// creates a "virtual" serial port/UART
+// connect BT module TX to D10
+// connect BT module RX to D11
+// connect BT Vcc to 5V, GND to GND
+
+#define SW 2 // define pin 2 as control pin
+
+void setup()  
+{
+    
+  // set digital pin to control as an output
+  pinMode(SW, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT);
+  pinMode(9, OUTPUT);
+
+  // set the data rate for the SoftwareSerial port
+  BT.begin(9600);
+
+  // Send test message to other device
+  BT.println("Ktos ci pozwolil ? Hmmmm");
+}
+
+char a; // stores incoming character from other device
+
+void loop() 
+{
+  if (BT.available())
+  // if text arrived in from BT serial...
+  {
+    a=(BT.read());
+    if (a=='1')
+    {
+      digitalWrite(SW, LOW);// Turn LIGH ON
+      digitalWrite(3, LOW);
+      
+      BT.println("1-2 przekazniki wlaczone");
+    }
+    }
+    if (a=='2')
+    {
+      digitalWrite(SW, HIGH);// Turn LIGHT OFF
+      digitalWrite(3, HIGH);
+      
+      BT.println("1-2 przekazniki wylaczone");
+    }
+    if (a=='3')
+    {
+      digitalWrite(4, LOW);
+      digitalWrite(5, LOW);
+
+      BT.println("Wlacza 3-4 przekazniki");
+    }
+    if (a=='4')
+    {
+      digitalWrite(4, HIGH);
+      digitalWrite(5,HIGH);
+
+      BT.println("Wylacza 3-4 przekazniki");
+    }
+    if (a=='5')
+    {
+      digitalWrite(6, LOW);
+      digitalWrite(7, LOW);
+
+      BT.println("Wlacza 5-6 przekazniki");
+    }
+    if (a=='6')
+    {
+      digitalWrite(6, HIGH);
+      digitalWrite(7, HIGH);
+
+      BT.println("Wylacza 5-6 przekazniki");
+    }
+    if (a=='7')
+    {
+      digitalWrite(8, LOW);
+      digitalWrite(9, LOW);
+
+      BT.println("Wlacza 7-8 przekazniki");
+    }
+    if (a=='8')
+    {
+      digitalWrite(8, HIGH);
+      digitalWrite(9, HIGH);
+
+      BT.println("Wylacza 7-8 przekazniki");
+    }
+    if (a=='9')
+    {
+      digitalWrite(SW, LOW);
+      digitalWrite(3, LOW);
+      digitalWrite(4, LOW);
+      digitalWrite(5, LOW);
+      digitalWrite(6, LOW);
+      digitalWrite(7, LOW);
+      digitalWrite(8, LOW);
+      digitalWrite(9, LOW);
+      
+      BT.println("Wlacza wszystkie przekazniki");
+    }
+    if (a=='m')
+    {
+      digitalWrite(SW, HIGH);
+      digitalWrite(3, HIGH);
+      digitalWrite(4, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(6, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(9, HIGH);
+
+      BT.println("Wylacza wszystkie przekazniki");
+    }
+    if (a=='?')
+    {
+      BT.println("Send '1' to turn ON (wlacza 1-2 przekazniki)");
+      BT.println("Send '2' to turn OFF (wylacza 1-2 przekazniki");
+      BT.println("Send '3' to turn ON (wlacza 3-4 przekazniki)");
+      BT.println("Send '4' to turn OFF (wylacza 3-4 przekazniki");
+      BT.println("Send '5' to turn ON (wlacza 5-6 przekazniki)");
+      BT.println("Send '6' to turn OFF (wylacza 5-6 przekazniki");
+      BT.println("Send '7' to turn ON (wlacza 7-8 przekazniki)");
+      BT.println("Send '8' to turn OFF (wylacza 7-8 przekazniki");
+      BT.println("Send '9' to turn ON (wlacza wszystkie przekazniki)");
+      BT.println("Send 'm' to turn OFF (wylacza wszystkie przekazniki");
+      
+
+    }   
+    
+  }
+ 
